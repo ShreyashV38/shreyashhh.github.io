@@ -1,0 +1,140 @@
+export interface Project {
+  id: string;
+  title: string;
+  shortTitle: string;
+  description: string;
+  longDescription: string;
+  tech: string[];
+  status: "PRODUCTION" | "LIVE" | "BETA";
+  githubUrl: string;
+  liveUrl?: string;
+  category: string;
+  highlights: string[];
+}
+
+export const projects: Project[] = [
+  {
+    id: "lima",
+    title: "LIMA — Lightweight In-Memory Archive",
+    shortTitle: "LIMA",
+    description:
+      "A POSIX-like Virtual File System written in C with an integrated text editor using Gap Buffer for O(1) insertions.",
+    longDescription:
+      "LIMA is a high-performance, POSIX-like Virtual File System (VFS) written in C. It provides an interactive shell for managing a simulated, single-root file hierarchy entirely in memory, featuring a built-in text editor, clipboard management, and multi-level undo/redo support.",
+    tech: ["C", "Make", "POSIX", "Gap Buffer", "N-ary Trees"],
+    status: "PRODUCTION",
+    githubUrl: "https://github.com/ShreyashV38/LIMA",
+    category: "Systems Programming",
+    highlights: [
+      "Interactive REPL with path completion",
+      "Built-in text editor with Gap Buffer",
+      "Copy/Cut/Paste across VFS",
+      "Session persistence via binary serialization",
+    ],
+  },
+  {
+    id: "nitoll-waat",
+    title: "Nitoll Waat — Smart Waste Management",
+    shortTitle: "NITOLL WAAT",
+    description:
+      "End-to-end IoT-powered waste management with real-time sensor data, optimized route planning, and multi-platform dashboards.",
+    longDescription:
+      "An end-to-end IoT-powered waste management solution utilizing real-time sensor data from Smart Bins. The system enables municipal authorities to monitor fill levels, weight, and bin status, facilitating efficient route planning for collection vehicles.",
+    tech: [
+      "TypeScript",
+      "Node.js",
+      "Express",
+      "React",
+      "PostgreSQL",
+      "ESP8266",
+      "Kotlin",
+    ],
+    status: "PRODUCTION",
+    githubUrl: "https://github.com/ShreyashV38/Nitoll_Waat",
+    category: "IoT / Full Stack",
+    highlights: [
+      "ESP8266 sensor firmware (C++)",
+      "React Admin Dashboard + Public Portal",
+      "Native Android Driver App",
+      "Real-time WebSocket communication",
+    ],
+  },
+  {
+    id: "filmvault",
+    title: "FilmVault — Movie Discovery Platform",
+    shortTitle: "FILMVAULT",
+    description:
+      "A dynamic movie discovery web app with real-time TMDB API search, favorites collection, and responsive grid UI.",
+    longDescription:
+      "A dynamic movie discovery web application built with React and Vite. Browse popular releases, search for specific titles using real-time API data, and curate a personal list of favorite movies with localStorage persistence.",
+    tech: ["React 19", "Vite", "TMDB API", "React Router", "CSS3"],
+    status: "LIVE",
+    githubUrl:
+      "https://github.com/ShreyashV38/FilmVault_A_personal_movie_discovery_and_favorites_catalog",
+    liveUrl: "https://film-vault-a-personal-movie-discove.vercel.app/",
+    category: "Frontend",
+    highlights: [
+      "Real-time movie search via TMDB API",
+      "Favorites with localStorage persistence",
+      "Mobile-first responsive design",
+      "Deployed on Vercel",
+    ],
+  },
+  {
+    id: "devnagri-ocr",
+    title: "Devnagri-OCR — Hindi Script Recognition",
+    shortTitle: "DEVNAGRI OCR",
+    description:
+      "A Devanagari script OCR system built with Python and machine learning for recognizing Hindi characters from images.",
+    longDescription:
+      "A computer vision project that recognizes Devanagari (Hindi) script from images using machine learning techniques. The system processes input images, segments characters, and classifies them using trained models.",
+    tech: ["Python", "OpenCV", "NumPy", "Machine Learning", "CNN"],
+    status: "PRODUCTION",
+    githubUrl: "https://github.com/ShreyashV38/Devnagri-OCR",
+    category: "AI / Computer Vision",
+    highlights: [
+      "Image preprocessing pipeline",
+      "Character segmentation",
+      "CNN-based classification",
+      "Flask backend API",
+    ],
+  },
+  {
+    id: "bloodbank",
+    title: "BloodBank — Donation Management System",
+    shortTitle: "BLOODBANK",
+    description:
+      "Full-stack blood bank platform with donor registration, request matching, payment integration, and CSRF protection.",
+    longDescription:
+      "A comprehensive blood bank management system that connects blood donors with recipients. Features donor registration, blood request matching, payment processing for logistics, and secure authentication with CSRF protection.",
+    tech: ["Node.js", "Express", "EJS", "MongoDB", "JWT", "Razorpay"],
+    status: "PRODUCTION",
+    githubUrl: "https://github.com/ShreyashV38/BloodBank",
+    category: "Full Stack",
+    highlights: [
+      "Donor-recipient matching algorithm",
+      "Payment gateway integration",
+      "CSRF + OTP authentication",
+      "Real-time inventory tracking",
+    ],
+  },
+  {
+    id: "doctor-web",
+    title: "Doctor-Web — Healthcare Platform",
+    shortTitle: "DOCTOR WEB",
+    description:
+      "TypeScript healthcare web application connecting patients with doctors, featuring appointment scheduling and medical records.",
+    longDescription:
+      "A healthcare web application built with TypeScript that facilitates patient-doctor interactions. Includes features for appointment scheduling, medical record management, and prescription tracking.",
+    tech: ["TypeScript", "React", "Node.js", "Express", "MongoDB"],
+    status: "BETA",
+    githubUrl: "https://github.com/ShreyashV38/Doctor-Web",
+    category: "Healthcare / Full Stack",
+    highlights: [
+      "Patient-doctor appointment system",
+      "Medical record management",
+      "Prescription tracking",
+      "Role-based access control",
+    ],
+  },
+];
