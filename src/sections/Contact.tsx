@@ -125,7 +125,7 @@ export default function Contact() {
               <h3 className="font-terminal text-[10px] tracking-[3px] text-[#00E5FF] uppercase mb-4">◈ Direct_Link</h3>
               <div className="space-y-3 font-terminal text-sm">
                 <div className="text-[#8A9BA8]">
-                  <span className="text-[#00E5FF]">mail:</span> shreyash.vaigankar@gmail.com
+                  <span className="text-[#00E5FF]">mail:</span> shreyashvaigankar125@gmail.com
                 </div>
                 <div className="text-[#8A9BA8]">
                   <span className="text-[#00E5FF]">loc:</span> Goa, India
