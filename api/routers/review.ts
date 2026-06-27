@@ -32,6 +32,21 @@ export const reviewRouter = createRouter({
     return db.select().from(reviews).orderBy(reviews.createdAt);
   }),
 
+  // Get review stats (count + average rating)
+  stats: publicQuery.query(async () => {
+    const db = getDb();
+    const result = await db
+      .select({
+        count: sql<number>`COUNT(*)`,
+        avgRating: sql<number>`COALESCE(AVG(rating), 0)`,
+      })
+      .from(reviews);
+    return {
+      totalReviews: Number(result[0].count),
+      averageRating: Number(Number(result[0].avgRating).toFixed(1)),
+    };
+  }),
+
   // Like a review
   like: publicQuery
     .input(

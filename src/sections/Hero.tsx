@@ -1,8 +1,15 @@
 import { useEffect, useRef, useState } from "react";
+import { trpc } from "@/providers/trpc";
 
 export default function Hero() {
   const heroRef = useRef<HTMLElement>(null);
   const [time, setTime] = useState("");
+
+  const reviewsQuery = trpc.review.list.useQuery();
+  const reviews = reviewsQuery.data ?? [];
+  const averageRating = reviews.length > 0
+    ? (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1)
+    : "0.0";
 
   useEffect(() => {
     const update = () => {
@@ -148,6 +155,7 @@ export default function Hero() {
                 { label: "Location", value: "Goa, India" },
                 { label: "Status", value: "Systems Active", accent: true },
                 { label: "Local Time", value: time },
+                { label: "Rating", value: `★ ${averageRating} (${reviews.length} reviews)` },
                 { label: "Repos", value: "23 Public" },
                 { label: "Stack", value: "Full Spectrum" },
               ].map((item) => (
