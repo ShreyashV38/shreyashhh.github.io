@@ -77,7 +77,10 @@ export default function Skills() {
               >
                 {/* Header */}
                 <div className="flex justify-between items-center mb-3">
-                  <span className="font-terminal text-[9px] tracking-[3px] text-[#8A9BA8]/40 uppercase">
+                  <span
+                    className="font-terminal text-[11px] tracking-[3px] uppercase font-bold"
+                    style={{ color: color.bar, textShadow: `0 0 8px ${color.shadow}` }}
+                  >
                     {skill.category.replace(/_/g, " ")}
                   </span>
                   <span

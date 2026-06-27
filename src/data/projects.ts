@@ -137,4 +137,72 @@ export const projects: Project[] = [
       "Role-based access control",
     ],
   },
+  {
+    id: "real-estate",
+    title: "Real Estate Management System",
+    shortTitle: "REAL ESTATE",
+    description: "Console-based real estate management application in Java demonstrating core OOP principles.",
+    longDescription: "Developed a console-based real estate management application in Java, applying core OOP principles (inheritance, encapsulation, polymorphism) to model property listings, client profiles, and transaction records. Implemented structured search and filter logic and documented the codebase with Javadoc.",
+    tech: ["Java", "OOP", "Javadoc"],
+    status: "PRODUCTION",
+    githubUrl: "https://github.com/ShreyashV38/Real_Estate_Management_System",
+    category: "Software Engineering",
+    highlights: [
+      "Core OOP principles",
+      "Property listing and client modeling",
+      "Structured search and filter logic",
+      "Full Javadoc annotations"
+    ]
+  },
+  {
+    id: "traffic-control",
+    title: "Traffic Control Management System",
+    shortTitle: "TRAFFIC CONTROL",
+    description: "Multi-lane traffic signal simulation in Java modeling adaptive signal timing.",
+    longDescription: "Built a multi-lane traffic signal simulation in Java modeling adaptive signal timing across intersections using object-oriented design patterns and a priority-queue algorithm for emergency-vehicle preemption.",
+    tech: ["Java", "OOP", "Priority Queue", "Simulation"],
+    status: "PRODUCTION",
+    githubUrl: "https://github.com/ShreyashV38/Traffic_Control_Management_System",
+    category: "Simulation / Algorithms",
+    highlights: [
+      "Adaptive signal timing simulation",
+      "Priority-queue algorithm for preemption",
+      "Object-oriented design patterns",
+      "Real-world constraints modeling"
+    ]
+  },
+  {
+    id: "schoolway",
+    title: "Schoolway — School Bus Tracking App",
+    shortTitle: "SCHOOLWAY",
+    description: "Real-time GPS-based bus tracking app for school children, giving parents and schools live location updates for student safety.",
+    longDescription: "A real-time bus tracking application built during B.Sc. final year. Parents and school administrators can track school bus locations live on a map. Designed for student safety with notifications, route history, and ETA estimates.",
+    tech: ["React Native", "Node.js", "Express", "GPS", "Real-time"],
+    status: "PRODUCTION",
+    githubUrl: "https://github.com/ShreyashV38",
+    category: "Mobile / Full Stack",
+    highlights: [
+      "Real-time GPS bus tracking",
+      "Parent & admin dashboards",
+      "Route history and ETA",
+      "Push notification alerts"
+    ]
+  },
+  {
+    id: "college-email-notifier",
+    title: "College Email Notifier — Google Apps Script",
+    shortTitle: "EMAIL NOTIFIER",
+    description: "A Google Apps Script automation to stay updated about important emails from college, filtering and forwarding academic updates.",
+    longDescription: "Built a Google Apps Script that monitors incoming emails from college domains, filters for important academic updates like exam schedules, results, and announcements, and sends automated notifications to stay on top of everything.",
+    tech: ["Google Apps Script", "JavaScript", "Gmail API"],
+    status: "LIVE",
+    githubUrl: "https://github.com/ShreyashV38",
+    category: "Automation",
+    highlights: [
+      "Automated email filtering",
+      "College domain monitoring",
+      "Custom notification triggers",
+      "Zero-maintenance automation"
+    ]
+  }
 ];

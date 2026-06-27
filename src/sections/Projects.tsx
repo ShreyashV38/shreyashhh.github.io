@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { Link } from "react-router";
 import { projects } from "@/data/projects";
 import type { Project } from "@/data/projects";
 
@@ -98,8 +99,10 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   );
 }
 
-export default function Projects() {
+export default function Projects({ preview = false }: { preview?: boolean }) {
   const sectionRef = useRef<HTMLElement>(null);
+  
+  const displayedProjects = preview ? projects.slice(0, 4) : projects;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -145,11 +148,24 @@ export default function Projects() {
         </div>
 
         {/* Projects grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {projects.map((project, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-12">
+          {displayedProjects.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />
           ))}
         </div>
+
+        {preview && (
+          <div className="reveal flex justify-center mt-12">
+            <Link
+              to="/projects"
+              className="px-8 py-3 border border-[#00FF22]/40 text-[#00FF22] font-terminal text-[12px] tracking-[3px] uppercase hover:bg-[#00FF22]/10 hover:shadow-[0_0_20px_rgba(0,255,34,0.3)] transition-all duration-300 cursor-hover group flex items-center gap-3"
+              style={{ clipPath: "polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%)" }}
+            >
+              View All Projects
+              <span className="transform group-hover:translate-x-1 transition-transform">→</span>
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );

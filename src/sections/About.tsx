@@ -7,9 +7,9 @@ const developerJSON = `{
   <span class="code-key">"role"</span>: <span class="code-value">"Full Stack Developer"</span>,
   <span class="code-key">"location"</span>: <span class="code-value">"Goa, India"</span>,
   <span class="code-key">"specialization"</span>: [
+    <span class="code-value">"Full Stack Web"</span>,
     <span class="code-value">"Systems Programming"</span>,
     <span class="code-value">"IoT & Hardware"</span>,
-    <span class="code-value">"Full Stack Web"</span>,
     <span class="code-value">"Computer Vision"</span>
   ],
   <span class="code-key">"stack"</span>: {
@@ -18,9 +18,9 @@ const developerJSON = `{
     <span class="code-string">"backend"</span>: [<span class="code-value">"Node.js", "Express", "REST", "GraphQL"</span>],
     <span class="code-string">"database"</span>: [<span class="code-value">"PostgreSQL", "MongoDB", "MySQL", "Redis"</span>]
   },
-  <span class="code-comment">// Currently building healthcare & IoT projects</span>
+  <span class="code-comment">// MCA Final Year — building production systems</span>
   <span class="code-key">"status"</span>: <span class="code-value">"accepting_contracts"</span>,
-  <span class="code-key">"learning"</span>: [<span class="code-value">"Prisma ORM"</span>, <span class="code-value">"Advanced DSA"</span>]
+  <span class="code-key">"education"</span>: <span class="code-value">"MCA @ Goa Business School"</span>
 }`;
 
 export default function About() {
@@ -73,16 +73,19 @@ export default function About() {
           <div className="space-y-8">
             <div className="reveal">
               <p className="font-body text-[15px] text-[#8A9BA8] leading-relaxed mb-4">
-                Operating from the digital coastline of Goa, I engineer systems
-                that power tomorrow's experiences. My code spans from bare-metal
-                C programs running on ESP8266 microcontrollers to scalable
-                full-stack web applications serving thousands of users.
+                Operating from the neon-lit coastline of Goa, I architect
+                full-spectrum digital systems — from kernel-level C routines
+                hardwired into ESP8266 microcontrollers to cloud-deployed web
+                platforms engineered to handle real-world data throughput at
+                scale.
               </p>
               <p className="font-body text-[15px] text-[#8A9BA8] leading-relaxed">
-                From neural networks recognizing Devanagari script to
-                distributed IoT waste management systems, I navigate the full
-                spectrum of modern development — every deployment automated,
-                every system monitored, every edge case handled.
+                Whether it's neural nets decoding Devanagari glyphs, IoT
+                sensor grids optimizing citywide waste collection, or
+                hackathon-forged healthcare platforms — I navigate every
+                protocol layer of modern development. Every pipeline
+                automated, every endpoint hardened, every edge case
+                neutralized.
               </p>
             </div>
 

@@ -92,14 +92,15 @@ export default function Hero() {
 
             {/* Subtitle */}
             <p className="hero-reveal font-terminal text-sm md:text-base text-[#8A9BA8] tracking-[2px] mb-8">
-              FULL_STACK.DEV • SYSTEMS_ARCHITECT • IOT_ENGINEER
+              FULL_STACK.DEVELOPER • MCA_CANDIDATE • SYSTEM_ARCHITECT
             </p>
 
             {/* Description */}
             <p className="hero-reveal font-body text-[15px] md:text-base text-[#8A9BA8]/80 max-w-lg leading-relaxed mb-10">
-              Engineering robust systems from low-level C to full-stack web
-              applications. Specializing in IoT platforms, computer vision, and
-              scalable architectures — deployed from the digital coastline of Goa, India.
+              Jacked into the grid from Goa's digital coastline — I build across
+              every layer of the stack. From bare-metal firmware on ESP8266
+              microcontrollers to full-stack web platforms processing real-world
+              data streams. Systems that run, scale, and don't break.
             </p>
 
             {/* CTA Buttons */}

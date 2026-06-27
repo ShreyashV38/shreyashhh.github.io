@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router";
 
 const navItems = [
   { label: "HOME", target: "home" },
@@ -6,6 +7,7 @@ const navItems = [
   { label: "SKILLS", target: "skills" },
   { label: "TIMELINE", target: "timeline" },
   { label: "PROJECTS", target: "projects" },
+  { label: "CERTIFICATES", target: "certificates" },
   { label: "REVIEWS", target: "reviews" },
   { label: "CONTACT", target: "contact" },
 ];
@@ -38,10 +40,21 @@ export default function Navigation() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const scrollTo = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
     setMobileOpen(false);
+    if (location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    } else {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { timelineData } from "@/data/timeline";
+import CyberGrid from "@/components/effects/CyberGrid";
 
 const typeConfig = {
   education: { icon: "◈", color: "#00E5FF", label: "EDUCATION" },
@@ -59,8 +60,11 @@ export default function Timeline() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="timeline" className="relative py-24 md:py-32">
-      <div className="max-w-5xl mx-auto px-6 md:px-8">
+    <section ref={sectionRef} id="timeline" className="relative py-24 md:py-32 overflow-hidden">
+      {/* Animated cyberpunk circuit grid background */}
+      <CyberGrid />
+
+      <div className="relative z-10 max-w-5xl mx-auto px-6 md:px-8">
         {/* Section header */}
         <div className="reveal mb-20">
           <div className="inline-flex items-center gap-3 mb-4">
