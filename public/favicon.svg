@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050A10"/>
+      <stop offset="100%" stop-color="#0A1628"/>
+    </linearGradient>
+    <linearGradient id="border-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00E5FF"/>
+      <stop offset="50%" stop-color="#7B00AA"/>
+      <stop offset="100%" stop-color="#00E5FF"/>
+    </linearGradient>
+    <linearGradient id="text-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00E5FF"/>
+      <stop offset="50%" stop-color="#7B00AA"/>
+      <stop offset="100%" stop-color="#00E5FF"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- Background -->
+  <rect width="64" height="64" rx="8" fill="url(#bg)"/>
+  <!-- Border -->
+  <rect x="1.5" y="1.5" width="61" height="61" rx="7" fill="none" stroke="url(#border-grad)" stroke-width="2" opacity="0.7"/>
+  <!-- Corner accents -->
+  <line x1="4" y1="4" x2="14" y2="4" stroke="#00E5FF" stroke-width="1.5" opacity="0.9"/>
+  <line x1="4" y1="4" x2="4" y2="14" stroke="#00E5FF" stroke-width="1.5" opacity="0.9"/>
+  <line x1="50" y1="60" x2="60" y2="60" stroke="#00E5FF" stroke-width="1.5" opacity="0.9"/>
+  <line x1="60" y1="50" x2="60" y2="60" stroke="#00E5FF" stroke-width="1.5" opacity="0.9"/>
+  <!-- SV Text -->
+  <text x="32" y="42" text-anchor="middle" font-family="'Consolas','Courier New',monospace" font-size="26" font-weight="bold" fill="url(#text-grad)" filter="url(#glow)" letter-spacing="2">SV</text>
+  <!-- Subtle scan line -->
+  <line x1="10" y1="50" x2="54" y2="50" stroke="#00E5FF" stroke-width="0.5" opacity="0.3"/>
+</svg>
