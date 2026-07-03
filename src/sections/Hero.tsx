@@ -99,15 +99,15 @@ export default function Hero() {
 
             {/* Subtitle */}
             <p className="hero-reveal font-terminal text-sm md:text-base text-[#8A9BA8] tracking-[2px] mb-8">
-              FULL_STACK.DEVELOPER • MCA_CANDIDATE • SYSTEM_ARCHITECT
+              ASPIRING_DEVELOPER • MCA_STUDENT • CODE_ENTHUSIAST
             </p>
 
             {/* Description */}
             <p className="hero-reveal font-body text-[15px] md:text-base text-[#8A9BA8]/80 max-w-lg leading-relaxed mb-10">
-              Jacked into the grid from Goa's digital coastline — I build across
-              every layer of the stack. From bare-metal firmware on ESP8266
-              microcontrollers to full-stack web platforms processing real-world
-              data streams. Systems that run, scale, and don't break.
+              A Computer Science student from Goa exploring full-stack
+              development — from building web apps with React and Node.js
+              to tinkering with IoT sensors and learning how things work
+              under the hood. Always building, always learning.
             </p>
 
             {/* CTA Buttons */}
@@ -156,8 +156,8 @@ export default function Hero() {
                 { label: "Status", value: "Systems Active", accent: true },
                 { label: "Local Time", value: time },
                 { label: "Rating", value: `★ ${averageRating} (${reviews.length} reviews)` },
-                { label: "Repos", value: "23 Public" },
-                { label: "Stack", value: "Full Spectrum" },
+                { label: "Focus", value: "Full Stack Web" },
+                { label: "Year", value: "MCA 1st Year" },
               ].map((item) => (
                 <div key={item.label} className="hero-reveal">
                   <div className="font-terminal text-[9px] tracking-[4px] text-[#8A9BA8]/40 uppercase mb-1">

@@ -2,11 +2,10 @@ import { z } from "zod";
 import { createRouter, publicQuery } from "../middleware";
 import { getDb } from "../queries/connection";
 import { contacts } from "@db/schema";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
-console.log("[MAIL] Module loaded. SMTP_USER:", process.env.SMTP_USER ? "SET" : "EMPTY");
-console.log("[MAIL] Module loaded. SMTP_PASS:", process.env.SMTP_PASS ? "SET" : "EMPTY");
-console.log("[MAIL] Module loaded. SMTP_HOST:", process.env.SMTP_HOST || "EMPTY");
+const resendApiKey = process.env.RESEND_API_KEY;
+console.log("[MAIL] Module loaded. RESEND_API_KEY:", resendApiKey ? "SET" : "EMPTY");
 
 export const contactRouter = createRouter({
   submit: publicQuery
@@ -28,50 +27,37 @@ export const contactRouter = createRouter({
       });
       console.log("[CONTACT] Saved to database.");
 
-      // ── Email notification ──
-      const smtpUser = process.env.SMTP_USER;
-      const smtpPass = process.env.SMTP_PASS;
-      const contactEmail = process.env.CONTACT_EMAIL || smtpUser;
+      // ── Email notification via Resend ──
+      const contactEmail = process.env.CONTACT_EMAIL || "shreyashvaigankar125@gmail.com";
 
-      console.log("[MAIL] Checking creds — USER:", smtpUser ? smtpUser : "MISSING", "PASS:", smtpPass ? "***SET***" : "MISSING");
-
-      if (!smtpUser || !smtpPass) {
-        console.log("[MAIL] Skipping email — credentials missing.");
-        return { success: true, emailSent: false, emailError: "SMTP credentials not configured" };
+      if (!resendApiKey) {
+        console.log("[MAIL] Skipping email — RESEND_API_KEY not configured.");
+        return { success: true, emailSent: false, emailError: "Resend API key not configured" };
       }
 
       try {
-        console.log("[MAIL] Creating Gmail transporter...");
-        const transporter = nodemailer.createTransport({
-          service: "gmail",
-          auth: {
-            user: smtpUser,
-            pass: smtpPass,
-          },
-        });
+        const resend = new Resend(resendApiKey);
 
-        console.log("[MAIL] Verifying connection...");
-        await transporter.verify();
-        console.log("[MAIL] Connection verified OK.");
-
-        console.log("[MAIL] Sending email to:", contactEmail);
-        const info = await transporter.sendMail({
-          from: `"${input.name}" <${smtpUser}>`,
+        console.log("[MAIL] Sending email via Resend to:", contactEmail);
+        const { data, error } = await resend.emails.send({
+          from: "Portfolio Contact <onboarding@resend.dev>",
+          to: [contactEmail],
           replyTo: input.email,
-          to: contactEmail,
           subject: `New Portfolio Message from ${input.name}`,
-          text: `Name: ${input.name}\nEmail: ${input.email}\n\nMessage:\n${input.message}`,
           html: `<p><strong>Name:</strong> ${input.name}</p>
                  <p><strong>Email:</strong> ${input.email}</p>
                  <p><strong>Message:</strong><br/>${input.message.replace(/\n/g, "<br/>")}</p>`,
         });
 
-        console.log("[MAIL] Email sent! MessageId:", info.messageId);
+        if (error) {
+          console.error("[MAIL] Resend error:", error.message);
+          return { success: true, emailSent: false, emailError: error.message };
+        }
+
+        console.log("[MAIL] Email sent! ID:", data?.id);
         return { success: true, emailSent: true, emailError: null };
       } catch (error: any) {
         console.error("[MAIL] FAILED:", error.message);
-        console.error("[MAIL] Code:", error.code);
-        console.error("[MAIL] Full:", JSON.stringify(error, Object.getOwnPropertyNames(error)));
         return { success: true, emailSent: false, emailError: error.message };
       }
     }),
@@ -81,3 +67,4 @@ export const contactRouter = createRouter({
     return db.select().from(contacts).orderBy(contacts.createdAt);
   }),
 });
+

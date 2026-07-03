@@ -8,32 +8,32 @@ export const skills: SkillCategory[] = [
   {
     category: "CORE_LANGUAGES",
     items: ["C", "C++", "JavaScript", "TypeScript", "Python", "Java"],
-    percentage: 92,
+    percentage: 65,
   },
   {
     category: "FRONTEND_MATRIX",
     items: ["React", "React Native", "Next.js", "Vite", "HTML5", "CSS3", "Tailwind"],
-    percentage: 90,
+    percentage: 70,
   },
   {
     category: "BACKEND_GRID",
     items: ["Node.js", "Express", "REST APIs", "GraphQL", "WebSocket"],
-    percentage: 85,
+    percentage: 55,
   },
   {
     category: "DATABASE_CORE",
     items: ["PostgreSQL", "MongoDB", "MySQL", "Firebase", "Redis"],
-    percentage: 82,
+    percentage: 50,
   },
   {
     category: "AI_NEURAL",
     items: ["Machine Learning", "OpenCV", "Computer Vision", "TensorFlow"],
-    percentage: 70,
+    percentage: 40,
   },
   {
     category: "INFRA_NET",
     items: ["Git", "GitHub", "Docker", "Linux", "Vercel", "AWS Basics"],
-    percentage: 75,
+    percentage: 45,
   },
 ];
 

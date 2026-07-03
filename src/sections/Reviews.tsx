@@ -95,7 +95,7 @@ export default function Reviews() {
             </span>
           </div>
           <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight mb-4">
-            <span className="text-[#F0F0F0]">CLIENT </span>
+            <span className="text-[#F0F0F0]">PEER </span>
             <span className="text-[#F5D800]" style={{ textShadow: "0 0 10px rgba(245,216,0,0.3)" }}>
               REVIEWS
             </span>

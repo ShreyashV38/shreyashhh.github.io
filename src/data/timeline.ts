@@ -100,11 +100,11 @@ export const timelineData: TimelineEntry[] = [
   },
   {
     year: "2026",
-    title: "MCA Final Year — Ongoing",
+    title: "MCA 1st Year — Ongoing",
     organization: "Goa Business School, Goa University",
     description:
-      "Currently in MCA final year. Actively building production systems, taking on contracts, and contributing to open-source. Exploring Kubernetes, advanced system design, and cloud-native architectures.",
+      "Currently in MCA 1st year. Building personal projects, exploring Kubernetes, system design, and cloud-native architectures. Looking for internship opportunities to gain real-world experience.",
     type: "education",
-    tags: ["MCA", "Final Year", "System Design"],
+    tags: ["MCA", "1st Year", "System Design", "Kubernetes"],
   },
 ];

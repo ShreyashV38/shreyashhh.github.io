@@ -155,7 +155,7 @@ export default function Contact() {
             {/* Status */}
             <div className="glass-panel border border-[#8A9BA8]/10 p-5 font-terminal text-[12px] space-y-2">
               <div><span className="text-[#00FF22]">response:</span> <span className="text-[#8A9BA8]">&lt; 24h</span></div>
-              <div><span className="text-[#F5D800]">status:</span> <span className="text-[#8A9BA8]">accepting_contracts</span></div>
+              <div><span className="text-[#F5D800]">status:</span> <span className="text-[#8A9BA8]">open_to_opportunities</span></div>
               <div><span className="text-[#00E5FF]">tz:</span> <span className="text-[#8A9BA8]">IST +5:30</span></div>
             </div>
 

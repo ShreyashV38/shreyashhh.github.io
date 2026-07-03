@@ -4,22 +4,22 @@ import { techStack } from "@/data/skills";
 const developerJSON = `{
   <span class="code-key">"name"</span>: <span class="code-value">"Shreyash Vaigankar"</span>,
   <span class="code-key">"handle"</span>: <span class="code-value">"ShreyashV38"</span>,
-  <span class="code-key">"role"</span>: <span class="code-value">"Full Stack Developer"</span>,
+  <span class="code-key">"role"</span>: <span class="code-value">"Computer Science Student"</span>,
   <span class="code-key">"location"</span>: <span class="code-value">"Goa, India"</span>,
-  <span class="code-key">"specialization"</span>: [
+  <span class="code-key">"interests"</span>: [
     <span class="code-value">"Full Stack Web"</span>,
     <span class="code-value">"Systems Programming"</span>,
     <span class="code-value">"IoT & Hardware"</span>,
     <span class="code-value">"Computer Vision"</span>
   ],
-  <span class="code-key">"stack"</span>: {
+  <span class="code-key">"learning"</span>: {
     <span class="code-string">"languages"</span>: [<span class="code-value">"C", "C++", "TypeScript", "Python", "Java"</span>],
     <span class="code-string">"frontend"</span>: [<span class="code-value">"React", "React Native", "Next.js", "Vite"</span>],
     <span class="code-string">"backend"</span>: [<span class="code-value">"Node.js", "Express", "REST", "GraphQL"</span>],
     <span class="code-string">"database"</span>: [<span class="code-value">"PostgreSQL", "MongoDB", "MySQL", "Redis"</span>]
   },
-  <span class="code-comment">// MCA Final Year — building production systems</span>
-  <span class="code-key">"status"</span>: <span class="code-value">"accepting_contracts"</span>,
+  <span class="code-comment">// MCA 1st Year — learning & building projects</span>
+  <span class="code-key">"status"</span>: <span class="code-value">"open_to_learn"</span>,
   <span class="code-key">"education"</span>: <span class="code-value">"MCA @ Goa Business School"</span>
 }`;
 
@@ -73,19 +73,16 @@ export default function About() {
           <div className="space-y-8">
             <div className="reveal">
               <p className="font-body text-[15px] text-[#8A9BA8] leading-relaxed mb-4">
-                Operating from the neon-lit coastline of Goa, I architect
-                full-spectrum digital systems — from kernel-level C routines
-                hardwired into ESP8266 microcontrollers to cloud-deployed web
-                platforms engineered to handle real-world data throughput at
-                scale.
+                I'm a Computer Science student from Goa, currently in my
+                MCA 1st year. I love exploring different areas of tech —
+                from building web apps with React and Node.js to writing
+                low-level C code and playing with IoT hardware.
               </p>
               <p className="font-body text-[15px] text-[#8A9BA8] leading-relaxed">
-                Whether it's neural nets decoding Devanagari glyphs, IoT
-                sensor grids optimizing citywide waste collection, or
-                hackathon-forged healthcare platforms — I navigate every
-                protocol layer of modern development. Every pipeline
-                automated, every endpoint hardened, every edge case
-                neutralized.
+                I've worked on projects ranging from a Devanagari OCR
+                system to an IoT-based waste management platform built
+                during hackathons. I'm always eager to learn new
+                technologies, take on challenges, and grow as a developer.
               </p>
             </div>
 
@@ -108,7 +105,7 @@ export default function About() {
                 { label: "Location", value: "Goa, India" },
                 { label: "Status", value: "Available" },
                 { label: "Timezone", value: "IST +5:30" },
-                { label: "Experience", value: "3+ Years" },
+                { label: "Experience", value: "Student" },
               ].map((card) => (
                 <div
                   key={card.label}
