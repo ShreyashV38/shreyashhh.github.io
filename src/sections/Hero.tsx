@@ -157,18 +157,17 @@ export default function Hero() {
                 { label: "Local Time", value: time },
                 { label: "Rating", value: `★ ${averageRating} (${reviews.length} reviews)` },
                 { label: "Focus", value: "Full Stack Web" },
-                { label: "Year", value: "MCA 1st Year" },
+                { label: "Year", value: "MCA 2nd Year" },
               ].map((item) => (
                 <div key={item.label} className="hero-reveal">
                   <div className="font-terminal text-[9px] tracking-[4px] text-[#8A9BA8]/40 uppercase mb-1">
                     {item.label}
                   </div>
                   <div
-                    className={`font-terminal text-sm ${
-                      item.accent
+                    className={`font-terminal text-sm ${item.accent
                         ? "text-[#00FF22] neon-text-cyan"
                         : "text-[#F0F0F0]"
-                    }`}
+                      }`}
                   >
                     {item.value}
                   </div>

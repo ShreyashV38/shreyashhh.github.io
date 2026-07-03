@@ -204,5 +204,23 @@ export const projects: Project[] = [
       "Custom notification triggers",
       "Zero-maintenance automation"
     ]
+  },
+  {
+    id: "cyberpunk-portfolio",
+    title: "Cyberpunk Developer Portfolio",
+    shortTitle: "PORTFOLIO",
+    description: "A highly interactive, cyberpunk-themed personal portfolio built with React, Vite, and Tailwind CSS.",
+    longDescription: "A full-stack, visually immersive portfolio website featuring custom cyberpunk aesthetics, dynamic animations, and interactive elements. Includes a fully functional contact form powered by Resend and a database-backed peer review system using tRPC.",
+    tech: ["React", "TypeScript", "Tailwind CSS", "tRPC", "Resend"],
+    status: "LIVE",
+    githubUrl: "https://github.com/ShreyashV38/shreyashhh.github.io",
+    liveUrl: "https://shreyashh.me",
+    category: "Full Stack / Frontend",
+    highlights: [
+      "Custom cyberpunk UI with dynamic neon effects",
+      "Interactive timeline and project showcase",
+      "Live peer review system with database integration",
+      "Functional email contact form via Resend API"
+    ]
   }
 ];

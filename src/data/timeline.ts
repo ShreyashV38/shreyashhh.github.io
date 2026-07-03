@@ -90,7 +90,7 @@ export const timelineData: TimelineEntry[] = [
     tags: ["Python", "OpenCV", "CNN", "Flask"],
   },
   {
-    year: "2026",
+    year: "June 2026",
     title: "Portfolio & Google Apps Script",
     organization: "Personal / Automation",
     description:
@@ -100,10 +100,10 @@ export const timelineData: TimelineEntry[] = [
   },
   {
     year: "2026",
-    title: "MCA 1st Year — Ongoing",
+    title: "MCA 2nd Year — Ongoing",
     organization: "Goa Business School, Goa University",
     description:
-      "Currently in MCA 1st year. Building personal projects, exploring Kubernetes, system design, and cloud-native architectures. Looking for internship opportunities to gain real-world experience.",
+      "Currently in MCA 2nd year. Building personal projects, exploring Kubernetes, system design, and cloud-native architectures. Looking for internship opportunities to gain real-world experience.",
     type: "education",
     tags: ["MCA", "1st Year", "System Design", "Kubernetes"],
   },

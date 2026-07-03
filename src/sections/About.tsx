@@ -18,7 +18,7 @@ const developerJSON = `{
     <span class="code-string">"backend"</span>: [<span class="code-value">"Node.js", "Express", "REST", "GraphQL"</span>],
     <span class="code-string">"database"</span>: [<span class="code-value">"PostgreSQL", "MongoDB", "MySQL", "Redis"</span>]
   },
-  <span class="code-comment">// MCA 1st Year — learning & building projects</span>
+  <span class="code-comment">// MCA 2nd Year — learning & building projects</span>
   <span class="code-key">"status"</span>: <span class="code-value">"open_to_learn"</span>,
   <span class="code-key">"education"</span>: <span class="code-value">"MCA @ Goa Business School"</span>
 }`;
@@ -74,7 +74,7 @@ export default function About() {
             <div className="reveal">
               <p className="font-body text-[15px] text-[#8A9BA8] leading-relaxed mb-4">
                 I'm a Computer Science student from Goa, currently in my
-                MCA 1st year. I love exploring different areas of tech —
+                MCA 2nd year. I love exploring different areas of tech —
                 from building web apps with React and Node.js to writing
                 low-level C code and playing with IoT hardware.
               </p>
