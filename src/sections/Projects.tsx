@@ -2,8 +2,12 @@ import { useEffect, useRef } from "react";
 import { Link } from "react-router";
 import { projects } from "@/data/projects";
 import type { Project } from "@/data/projects";
+import { usePostHog } from "@posthog/react";
 
-const statusColors: Record<string, { border: string; text: string; bg: string }> = {
+const statusColors: Record<
+  string,
+  { border: string; text: string; bg: string }
+> = {
   PRODUCTION: { border: "#00FF22", text: "#00FF22", bg: "rgba(0,255,34,0.05)" },
   LIVE: { border: "#00E5FF", text: "#00E5FF", bg: "rgba(0,229,255,0.05)" },
   BETA: { border: "#F5D800", text: "#F5D800", bg: "rgba(245,216,0,0.05)" },
@@ -11,6 +15,7 @@ const statusColors: Record<string, { border: string; text: string; bg: string }>
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const status = statusColors[project.status] || statusColors.PRODUCTION;
+  const posthog = usePostHog();
 
   return (
     <div
@@ -29,7 +34,8 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               borderColor: `${status.border}30`,
               color: status.text,
               background: status.bg,
-              clipPath: "polygon(4px 0%, 100% 0%, calc(100% - 4px) 100%, 0% 100%)",
+              clipPath:
+                "polygon(4px 0%, 100% 0%, calc(100% - 4px) 100%, 0% 100%)",
             }}
           >
             {project.status}
@@ -48,7 +54,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
         {/* Highlights */}
         <ul className="space-y-1.5 mb-5">
-          {project.highlights.slice(0, 3).map((h) => (
+          {project.highlights.slice(0, 3).map(h => (
             <li key={h} className="flex items-start gap-2">
               <span className="text-[#00E5FF] text-[8px] mt-1.5">▸</span>
               <span className="font-body text-[12px] text-[#8A9BA8]/70">
@@ -60,11 +66,14 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
         {/* Tech tags */}
         <div className="flex flex-wrap gap-1.5 mb-5">
-          {project.tech.map((t) => (
+          {project.tech.map(t => (
             <span
               key={t}
               className="px-2 py-0.5 font-terminal text-[9px] tracking-[1px] border border-[#00E5FF]/15 text-[#00E5FF]/60 bg-[#00E5FF]/5"
-              style={{ clipPath: "polygon(3px 0%, 100% 0%, calc(100% - 3px) 100%, 0% 100%)" }}
+              style={{
+                clipPath:
+                  "polygon(3px 0%, 100% 0%, calc(100% - 3px) 100%, 0% 100%)",
+              }}
             >
               {t}
             </span>
@@ -77,8 +86,17 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             href={project.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() =>
+              posthog?.capture("project_github_clicked", {
+                project_id: project.id,
+                project_title: project.shortTitle,
+              })
+            }
             className="px-5 py-2 bg-gradient-to-r from-[#00E5FF] to-[#7B00AA] text-black font-terminal text-[10px] tracking-[2px] uppercase hover:shadow-[0_0_20px_rgba(0,229,255,0.4)] transition-all duration-300 cursor-hover"
-            style={{ clipPath: "polygon(4px 0%, 100% 0%, calc(100% - 4px) 100%, 0% 100%)" }}
+            style={{
+              clipPath:
+                "polygon(4px 0%, 100% 0%, calc(100% - 4px) 100%, 0% 100%)",
+            }}
           >
             ◈ Code
           </a>
@@ -87,8 +105,17 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() =>
+                posthog?.capture("project_live_clicked", {
+                  project_id: project.id,
+                  project_title: project.shortTitle,
+                })
+              }
               className="px-5 py-2 border border-[#00FF22]/30 text-[#00FF22] font-terminal text-[10px] tracking-[2px] uppercase hover:bg-[#00FF22]/10 hover:shadow-[0_0_20px_rgba(0,255,34,0.3)] transition-all duration-300 cursor-hover"
-              style={{ clipPath: "polygon(4px 0%, 100% 0%, calc(100% - 4px) 100%, 0% 100%)" }}
+              style={{
+                clipPath:
+                  "polygon(4px 0%, 100% 0%, calc(100% - 4px) 100%, 0% 100%)",
+              }}
             >
               ▸ Live
             </a>
@@ -101,13 +128,14 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
 export default function Projects({ preview = false }: { preview?: boolean }) {
   const sectionRef = useRef<HTMLElement>(null);
-  
+  const posthog = usePostHog();
+
   const displayedProjects = preview ? projects.slice(0, 4) : projects;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
+      entries => {
+        entries.forEach(entry => {
           if (entry.isIntersecting) {
             const items = entry.target.querySelectorAll(".reveal");
             items.forEach((el, i) => {
@@ -141,7 +169,10 @@ export default function Projects({ preview = false }: { preview?: boolean }) {
           </div>
           <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight">
             <span className="text-[#F0F0F0]">PROJECT </span>
-            <span className="text-[#00FF22]" style={{ textShadow: "0 0 10px rgba(0,255,34,0.4)" }}>
+            <span
+              className="text-[#00FF22]"
+              style={{ textShadow: "0 0 10px rgba(0,255,34,0.4)" }}
+            >
               ARCHIVE
             </span>
           </h2>
@@ -158,11 +189,17 @@ export default function Projects({ preview = false }: { preview?: boolean }) {
           <div className="reveal flex justify-center mt-12">
             <Link
               to="/projects"
+              onClick={() => posthog?.capture("view_all_projects_clicked")}
               className="px-8 py-3 border border-[#00FF22]/40 text-[#00FF22] font-terminal text-[12px] tracking-[3px] uppercase hover:bg-[#00FF22]/10 hover:shadow-[0_0_20px_rgba(0,255,34,0.3)] transition-all duration-300 cursor-hover group flex items-center gap-3"
-              style={{ clipPath: "polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%)" }}
+              style={{
+                clipPath:
+                  "polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%)",
+              }}
             >
               View All Projects
-              <span className="transform group-hover:translate-x-1 transition-transform">→</span>
+              <span className="transform group-hover:translate-x-1 transition-transform">
+                →
+              </span>
             </Link>
           </div>
         )}

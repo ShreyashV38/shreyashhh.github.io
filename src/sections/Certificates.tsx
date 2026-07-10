@@ -2,8 +2,17 @@ import { useEffect, useRef } from "react";
 import { Link } from "react-router";
 import { certificates } from "@/data/certificates";
 import type { Certificate } from "@/data/certificates";
+import { usePostHog } from "@posthog/react";
 
-function CertificateCard({ cert, index }: { cert: Certificate; index: number }) {
+function CertificateCard({
+  cert,
+  index,
+}: {
+  cert: Certificate;
+  index: number;
+}) {
+  const posthog = usePostHog();
+
   return (
     <div
       className="reveal glass-panel border border-[#8A9BA8]/10 hover:border-[#F5D800]/30 transition-all duration-300 overflow-hidden cursor-hover group"
@@ -23,10 +32,20 @@ function CertificateCard({ cert, index }: { cert: Certificate; index: number }) 
             href={cert.image}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() =>
+              posthog?.capture("certificate_image_clicked", {
+                certificate_title: cert.title,
+                issuer: cert.issuer,
+              })
+            }
             className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/40 transition-all duration-300"
           >
-            <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-5 py-2 border border-[#F5D800]/60 text-[#F5D800] font-terminal text-[10px] tracking-[3px] uppercase bg-black/70 backdrop-blur-sm"
-              style={{ clipPath: "polygon(4px 0%, 100% 0%, calc(100% - 4px) 100%, 0% 100%)" }}
+            <span
+              className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-5 py-2 border border-[#F5D800]/60 text-[#F5D800] font-terminal text-[10px] tracking-[3px] uppercase bg-black/70 backdrop-blur-sm"
+              style={{
+                clipPath:
+                  "polygon(4px 0%, 100% 0%, calc(100% - 4px) 100%, 0% 100%)",
+              }}
             >
               ▸ View Full Certificate
             </span>
@@ -42,7 +61,8 @@ function CertificateCard({ cert, index }: { cert: Certificate; index: number }) 
           <span
             className="font-terminal text-[9px] tracking-[2px] px-3 py-1 border uppercase text-[#F5D800] bg-[rgba(245,216,0,0.05)] border-[#F5D800]/30"
             style={{
-              clipPath: "polygon(4px 0%, 100% 0%, calc(100% - 4px) 100%, 0% 100%)",
+              clipPath:
+                "polygon(4px 0%, 100% 0%, calc(100% - 4px) 100%, 0% 100%)",
             }}
           >
             {cert.date}
@@ -75,15 +95,22 @@ function CertificateCard({ cert, index }: { cert: Certificate; index: number }) 
   );
 }
 
-export default function Certificates({ preview = false }: { preview?: boolean }) {
+export default function Certificates({
+  preview = false,
+}: {
+  preview?: boolean;
+}) {
   const sectionRef = useRef<HTMLElement>(null);
-  
-  const displayedCertificates = preview ? certificates.slice(0, 2) : certificates;
+  const posthog = usePostHog();
+
+  const displayedCertificates = preview
+    ? certificates.slice(0, 2)
+    : certificates;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
+      entries => {
+        entries.forEach(entry => {
           if (entry.isIntersecting) {
             const items = entry.target.querySelectorAll(".reveal");
             items.forEach((el, i) => {
@@ -105,7 +132,11 @@ export default function Certificates({ preview = false }: { preview?: boolean })
   }, []);
 
   return (
-    <section ref={sectionRef} id="certificates" className="relative py-24 md:py-32">
+    <section
+      ref={sectionRef}
+      id="certificates"
+      className="relative py-24 md:py-32"
+    >
       <div className="max-w-7xl mx-auto px-6 md:px-8">
         {/* Section header */}
         <div className="reveal mb-16">
@@ -117,7 +148,10 @@ export default function Certificates({ preview = false }: { preview?: boolean })
           </div>
           <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight">
             <span className="text-[#F0F0F0]">CERTIFICATE </span>
-            <span className="text-[#F5D800]" style={{ textShadow: "0 0 10px rgba(245,216,0,0.4)" }}>
+            <span
+              className="text-[#F5D800]"
+              style={{ textShadow: "0 0 10px rgba(245,216,0,0.4)" }}
+            >
               ARCHIVE
             </span>
           </h2>
@@ -134,11 +168,17 @@ export default function Certificates({ preview = false }: { preview?: boolean })
           <div className="reveal flex justify-center mt-12">
             <Link
               to="/certificates"
+              onClick={() => posthog?.capture("view_all_certificates_clicked")}
               className="px-8 py-3 border border-[#F5D800]/40 text-[#F5D800] font-terminal text-[12px] tracking-[3px] uppercase hover:bg-[#F5D800]/10 hover:shadow-[0_0_20px_rgba(245,216,0,0.3)] transition-all duration-300 cursor-hover group flex items-center gap-3"
-              style={{ clipPath: "polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%)" }}
+              style={{
+                clipPath:
+                  "polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%)",
+              }}
             >
               View All Certificates
-              <span className="transform group-hover:translate-x-1 transition-transform">→</span>
+              <span className="transform group-hover:translate-x-1 transition-transform">
+                →
+              </span>
             </Link>
           </div>
         )}

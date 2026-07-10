@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { trpc } from "@/providers/trpc";
+import { usePostHog } from "@posthog/react";
 
 function generateSessionToken() {
   const existing = localStorage.getItem("portfolio_session");
   if (existing) return existing;
-  const token = Math.random().toString(36).substring(2) + Date.now().toString(36);
+  const token =
+    Math.random().toString(36).substring(2) + Date.now().toString(36);
   localStorage.setItem("portfolio_session", token);
   return token;
 }
@@ -17,18 +19,26 @@ export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const sessionToken = useRef(generateSessionToken());
 
+  const posthog = usePostHog();
   const utils = trpc.useUtils();
   const contactMutation = trpc.contact.submit.useMutation({
     onSuccess: () => {
-      setName(""); setEmail(""); setMessage("");
+      posthog?.capture("contact_form_submitted");
+      setName("");
+      setEmail("");
+      setMessage("");
       setSubmitted(true);
       setTimeout(() => setSubmitted(false), 3000);
     },
   });
 
-  const portfolioLikeQuery = trpc.portfolioLike.status.useQuery({ sessionToken: sessionToken.current });
+  const portfolioLikeQuery = trpc.portfolioLike.status.useQuery({
+    sessionToken: sessionToken.current,
+  });
   const portfolioLikeMutation = trpc.portfolioLike.toggle.useMutation({
-    onSuccess: () => { utils.portfolioLike.status.invalidate(); },
+    onSuccess: () => {
+      utils.portfolioLike.status.invalidate();
+    },
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -38,6 +48,9 @@ export default function Contact() {
   };
 
   const handlePortfolioLike = () => {
+    posthog?.capture(isLiked ? "portfolio_unliked" : "portfolio_liked", {
+      total_likes: totalLikes,
+    });
     portfolioLikeMutation.mutate({ sessionToken: sessionToken.current });
   };
 
@@ -46,8 +59,8 @@ export default function Contact() {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
+      entries => {
+        entries.forEach(entry => {
           if (entry.isIntersecting) {
             const items = entry.target.querySelectorAll(".reveal");
             items.forEach((el, i) => {
@@ -89,32 +102,62 @@ export default function Contact() {
           {/* Contact form */}
           <form onSubmit={handleSubmit} className="reveal space-y-5">
             <div>
-              <label className="block font-terminal text-[9px] tracking-[3px] text-[#8A9BA8]/40 uppercase mb-2">Name</label>
-              <input type="text" value={name} onChange={(e) => setName(e.target.value)} required placeholder="Your name"
+              <label className="block font-terminal text-[9px] tracking-[3px] text-[#8A9BA8]/40 uppercase mb-2">
+                Name
+              </label>
+              <input
+                type="text"
+                value={name}
+                onChange={e => setName(e.target.value)}
+                required
+                placeholder="Your name"
                 className="w-full bg-[#050A10] border border-[#8A9BA8]/15 text-[#F0F0F0] font-terminal text-sm px-4 py-3.5 outline-none focus:border-[#00E5FF]/50 focus:shadow-[0_0_10px_rgba(0,229,255,0.1)] transition-all duration-200"
               />
             </div>
             <div>
-              <label className="block font-terminal text-[9px] tracking-[3px] text-[#8A9BA8]/40 uppercase mb-2">Email</label>
-              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="your@email.com"
+              <label className="block font-terminal text-[9px] tracking-[3px] text-[#8A9BA8]/40 uppercase mb-2">
+                Email
+              </label>
+              <input
+                type="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                required
+                placeholder="your@email.com"
                 className="w-full bg-[#050A10] border border-[#8A9BA8]/15 text-[#F0F0F0] font-terminal text-sm px-4 py-3.5 outline-none focus:border-[#00E5FF]/50 focus:shadow-[0_0_10px_rgba(0,229,255,0.1)] transition-all duration-200"
               />
             </div>
             <div>
-              <label className="block font-terminal text-[9px] tracking-[3px] text-[#8A9BA8]/40 uppercase mb-2">Message</label>
-              <textarea value={message} onChange={(e) => setMessage(e.target.value)} required rows={5} placeholder="Your message..."
+              <label className="block font-terminal text-[9px] tracking-[3px] text-[#8A9BA8]/40 uppercase mb-2">
+                Message
+              </label>
+              <textarea
+                value={message}
+                onChange={e => setMessage(e.target.value)}
+                required
+                rows={5}
+                placeholder="Your message..."
                 className="w-full bg-[#050A10] border border-[#8A9BA8]/15 text-[#F0F0F0] font-terminal text-sm px-4 py-3.5 outline-none focus:border-[#00E5FF]/50 focus:shadow-[0_0_10px_rgba(0,229,255,0.1)] transition-all duration-200 resize-y"
               />
             </div>
-            <button type="submit" disabled={contactMutation.isPending || submitted}
+            <button
+              type="submit"
+              disabled={contactMutation.isPending || submitted}
               className={`w-full py-3.5 font-terminal text-[10px] tracking-[3px] uppercase transition-all duration-300 cursor-hover ${
                 submitted
                   ? "bg-[#00FF22]/10 border border-[#00FF22]/30 text-[#00FF22]"
                   : "bg-gradient-to-r from-[#00E5FF] to-[#7B00AA] text-black hover:shadow-[0_0_20px_rgba(0,229,255,0.4)]"
               }`}
-              style={{ clipPath: "polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%)" }}
+              style={{
+                clipPath:
+                  "polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%)",
+              }}
             >
-              {submitted ? "◈ Message Sent" : contactMutation.isPending ? "◈ Transmitting..." : "◈ Send Message"}
+              {submitted
+                ? "◈ Message Sent"
+                : contactMutation.isPending
+                  ? "◈ Transmitting..."
+                  : "◈ Send Message"}
             </button>
           </form>
 
@@ -122,10 +165,13 @@ export default function Contact() {
           <div className="reveal space-y-5">
             {/* Direct contact */}
             <div className="glass-panel border border-[#8A9BA8]/10 p-5">
-              <h3 className="font-terminal text-[10px] tracking-[3px] text-[#00E5FF] uppercase mb-4">◈ Direct_Link</h3>
+              <h3 className="font-terminal text-[10px] tracking-[3px] text-[#00E5FF] uppercase mb-4">
+                ◈ Direct_Link
+              </h3>
               <div className="space-y-3 font-terminal text-sm">
                 <div className="text-[#8A9BA8]">
-                  <span className="text-[#00E5FF]">mail:</span> shreyashvaigankar125@gmail.com
+                  <span className="text-[#00E5FF]">mail:</span>{" "}
+                  shreyashvaigankar125@gmail.com
                 </div>
                 <div className="text-[#8A9BA8]">
                   <span className="text-[#00E5FF]">loc:</span> Goa, India
@@ -135,15 +181,30 @@ export default function Contact() {
 
             {/* Social */}
             <div className="glass-panel border border-[#8A9BA8]/10 p-5">
-              <h3 className="font-terminal text-[10px] tracking-[3px] text-[#00E5FF] uppercase mb-4">◈ Nodes</h3>
+              <h3 className="font-terminal text-[10px] tracking-[3px] text-[#00E5FF] uppercase mb-4">
+                ◈ Nodes
+              </h3>
               <div className="flex gap-3">
                 {[
                   { label: "GH", url: "https://github.com/ShreyashV38" },
-                  { label: "LI", url: "https://linkedin.com/in/shreyash-v-10a632263" },
+                  {
+                    label: "LI",
+                    url: "https://linkedin.com/in/shreyash-v-10a632263",
+                  },
                   { label: "X", url: "https://x.com/@vaigankar7680" },
                   { label: "IG", url: "https://instagram.com/_shrey4sh_18_" },
-                ].map((s) => (
-                  <a key={s.label} href={s.url} target="_blank" rel="noopener noreferrer"
+                ].map(s => (
+                  <a
+                    key={s.label}
+                    href={s.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() =>
+                      posthog?.capture("social_link_clicked", {
+                        platform: s.label,
+                        url: s.url,
+                      })
+                    }
                     className="w-10 h-10 border border-[#8A9BA8]/20 flex items-center justify-center font-terminal text-[10px] text-[#8A9BA8]/60 hover:border-[#00E5FF] hover:text-[#00E5FF] hover:shadow-[0_0_10px_rgba(0,229,255,0.3)] transition-all duration-200 cursor-hover"
                   >
                     {s.label}
@@ -154,20 +215,32 @@ export default function Contact() {
 
             {/* Status */}
             <div className="glass-panel border border-[#8A9BA8]/10 p-5 font-terminal text-[12px] space-y-2">
-              <div><span className="text-[#00FF22]">response:</span> <span className="text-[#8A9BA8]">&lt; 24h</span></div>
-              <div><span className="text-[#F5D800]">status:</span> <span className="text-[#8A9BA8]">open_to_opportunities</span></div>
-              <div><span className="text-[#00E5FF]">tz:</span> <span className="text-[#8A9BA8]">IST +5:30</span></div>
+              <div>
+                <span className="text-[#00FF22]">response:</span>{" "}
+                <span className="text-[#8A9BA8]">&lt; 24h</span>
+              </div>
+              <div>
+                <span className="text-[#F5D800]">status:</span>{" "}
+                <span className="text-[#8A9BA8]">open_to_opportunities</span>
+              </div>
+              <div>
+                <span className="text-[#00E5FF]">tz:</span>{" "}
+                <span className="text-[#8A9BA8]">IST +5:30</span>
+              </div>
             </div>
 
             {/* Portfolio Like */}
-            <button onClick={handlePortfolioLike} disabled={portfolioLikeMutation.isPending}
+            <button
+              onClick={handlePortfolioLike}
+              disabled={portfolioLikeMutation.isPending}
               className={`w-full py-3.5 font-terminal text-[10px] tracking-[3px] uppercase transition-all duration-300 cursor-hover border ${
                 isLiked
                   ? "border-[#00E5FF]/30 bg-[#00E5FF]/10 text-[#00E5FF] shadow-[0_0_15px_rgba(0,229,255,0.2)]"
                   : "border-[#8A9BA8]/15 text-[#8A9BA8]/40 hover:border-[#00E5FF]/30 hover:text-[#00E5FF]"
               }`}
             >
-              {isLiked ? "◈ Liked" : "◈ Like Portfolio"} — {totalLikes} {totalLikes === 1 ? "node" : "nodes"}
+              {isLiked ? "◈ Liked" : "◈ Like Portfolio"} — {totalLikes}{" "}
+              {totalLikes === 1 ? "node" : "nodes"}
             </button>
           </div>
         </div>

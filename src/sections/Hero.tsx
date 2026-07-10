@@ -1,15 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import { trpc } from "@/providers/trpc";
+import { usePostHog } from "@posthog/react";
 
 export default function Hero() {
   const heroRef = useRef<HTMLElement>(null);
   const [time, setTime] = useState("");
+  const posthog = usePostHog();
 
   const reviewsQuery = trpc.review.list.useQuery();
   const reviews = reviewsQuery.data ?? [];
-  const averageRating = reviews.length > 0
-    ? (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1)
-    : "0.0";
+  const averageRating =
+    reviews.length > 0
+      ? (
+          reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length
+        ).toFixed(1)
+      : "0.0";
 
   useEffect(() => {
     const update = () => {
@@ -34,12 +39,15 @@ export default function Hero() {
       const htmlEl = el as HTMLElement;
       htmlEl.style.opacity = "0";
       htmlEl.style.transform = "translateY(30px)";
-      setTimeout(() => {
-        htmlEl.style.transition =
-          "opacity 800ms cubic-bezier(0.16, 1, 0.3, 1), transform 800ms cubic-bezier(0.16, 1, 0.3, 1)";
-        htmlEl.style.opacity = "1";
-        htmlEl.style.transform = "translateY(0)";
-      }, 300 + i * 150);
+      setTimeout(
+        () => {
+          htmlEl.style.transition =
+            "opacity 800ms cubic-bezier(0.16, 1, 0.3, 1), transform 800ms cubic-bezier(0.16, 1, 0.3, 1)";
+          htmlEl.style.opacity = "1";
+          htmlEl.style.transform = "translateY(0)";
+        },
+        300 + i * 150
+      );
     });
   }, []);
 
@@ -69,8 +77,12 @@ export default function Hero() {
           <div>
             {/* Status badge */}
             <div className="hero-reveal mb-8">
-              <div className="inline-flex items-center gap-2.5 px-4 py-2 border border-[#00FF22]/30 bg-[#00FF22]/5 cursor-hover"
-                style={{ clipPath: "polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%)" }}
+              <div
+                className="inline-flex items-center gap-2.5 px-4 py-2 border border-[#00FF22]/30 bg-[#00FF22]/5 cursor-hover"
+                style={{
+                  clipPath:
+                    "polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%)",
+                }}
               >
                 <span className="w-2 h-2 rounded-full bg-[#00FF22] shadow-[0_0_8px_#00FF22] animate-pulse" />
                 <span className="font-terminal text-[11px] tracking-[3px] text-[#00FF22] uppercase">
@@ -105,24 +117,36 @@ export default function Hero() {
             {/* Description */}
             <p className="hero-reveal font-body text-[15px] md:text-base text-[#8A9BA8]/80 max-w-lg leading-relaxed mb-10">
               A Computer Science student from Goa exploring full-stack
-              development — from building web apps with React and Node.js
-              to tinkering with IoT sensors and learning how things work
-              under the hood. Always building, always learning.
+              development — from building web apps with React and Node.js to
+              tinkering with IoT sensors and learning how things work under the
+              hood. Always building, always learning.
             </p>
 
             {/* CTA Buttons */}
             <div className="hero-reveal flex flex-wrap gap-4 mb-10">
               <button
-                onClick={() => scrollTo("projects")}
+                onClick={() => {
+                  posthog?.capture("hero_view_projects_clicked");
+                  scrollTo("projects");
+                }}
                 className="px-8 py-3 bg-gradient-to-r from-[#00E5FF] to-[#7B00AA] text-black font-display text-xs tracking-[3px] uppercase hover:shadow-[0_0_30px_rgba(0,229,255,0.5)] transition-all duration-300 cursor-hover"
-                style={{ clipPath: "polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%)" }}
+                style={{
+                  clipPath:
+                    "polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%)",
+                }}
               >
                 View Projects
               </button>
               <button
-                onClick={() => scrollTo("contact")}
+                onClick={() => {
+                  posthog?.capture("hero_contact_clicked");
+                  scrollTo("contact");
+                }}
                 className="px-8 py-3 border border-[#00E5FF]/40 text-[#00E5FF] font-display text-xs tracking-[3px] uppercase hover:bg-[#00E5FF]/10 hover:shadow-[0_0_20px_rgba(0,229,255,0.3)] transition-all duration-300 cursor-hover"
-                style={{ clipPath: "polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%)" }}
+                style={{
+                  clipPath:
+                    "polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%)",
+                }}
               >
                 Contact Me
               </button>
@@ -132,14 +156,23 @@ export default function Hero() {
             <div className="hero-reveal flex gap-3">
               {[
                 { label: "GH", url: "https://github.com/ShreyashV38" },
-                { label: "LI", url: "https://linkedin.com/in/shreyash-v-10a632263" },
+                {
+                  label: "LI",
+                  url: "https://linkedin.com/in/shreyash-v-10a632263",
+                },
                 { label: "X", url: "https://x.com/@vaigankar7680" },
-              ].map((s) => (
+              ].map(s => (
                 <a
                   key={s.label}
                   href={s.url}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() =>
+                    posthog?.capture("hero_social_link_clicked", {
+                      platform: s.label,
+                      url: s.url,
+                    })
+                  }
                   className="w-10 h-10 border border-[#8A9BA8]/20 flex items-center justify-center font-terminal text-[10px] text-[#8A9BA8]/60 hover:border-[#00E5FF] hover:text-[#00E5FF] hover:shadow-[0_0_10px_rgba(0,229,255,0.3)] transition-all duration-200 cursor-hover"
                 >
                   {s.label}
@@ -155,19 +188,23 @@ export default function Hero() {
                 { label: "Location", value: "Goa, India" },
                 { label: "Status", value: "Systems Active", accent: true },
                 { label: "Local Time", value: time },
-                { label: "Rating", value: `★ ${averageRating} (${reviews.length} reviews)` },
+                {
+                  label: "Rating",
+                  value: `★ ${averageRating} (${reviews.length} reviews)`,
+                },
                 { label: "Focus", value: "Full Stack Web" },
                 { label: "Year", value: "MCA 2nd Year" },
-              ].map((item) => (
+              ].map(item => (
                 <div key={item.label} className="hero-reveal">
                   <div className="font-terminal text-[9px] tracking-[4px] text-[#8A9BA8]/40 uppercase mb-1">
                     {item.label}
                   </div>
                   <div
-                    className={`font-terminal text-sm ${item.accent
+                    className={`font-terminal text-sm ${
+                      item.accent
                         ? "text-[#00FF22] neon-text-cyan"
                         : "text-[#F0F0F0]"
-                      }`}
+                    }`}
                   >
                     {item.value}
                   </div>
