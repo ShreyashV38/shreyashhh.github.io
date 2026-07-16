@@ -10,6 +10,14 @@ export interface Certificate {
 
 export const certificates: Certificate[] = [
   {
+    id: "solve-for-goa-2026",
+    title: "Solve for Goa 2026 — Hackathon",
+    issuer: "Google Developer Groups, Goa",
+    date: "26 Jan 2026",
+    description: "Certificate of Participation in the Solve for Goa 2026 hackathon event by GDG Goa & Sofueled, focused on building tech solutions for local challenges.",
+    image: "/certificates/GDG_certificate.jpg"
+  },
+  {
     id: "ibm-cybersecurity",
     title: "Cybersecurity Fundamentals",
     issuer: "IBM SkillsBuild",
