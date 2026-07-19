@@ -150,6 +150,23 @@ export default function Hero() {
               >
                 Contact Me
               </button>
+              <a
+                href="/certificates/Shreyash_resume.pdf"
+                download="Shreyash_Vaigankar_Resume.pdf"
+                onClick={() => posthog?.capture("hero_resume_downloaded")}
+                className="px-8 py-3 border border-[#F5D800]/40 text-[#F5D800] font-display text-xs tracking-[3px] uppercase hover:bg-[#F5D800]/10 hover:shadow-[0_0_20px_rgba(245,216,0,0.3)] transition-all duration-300 cursor-hover flex items-center gap-2"
+                style={{
+                  clipPath:
+                    "polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%)",
+                }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+                Resume
+              </a>
             </div>
 
             {/* Social links */}

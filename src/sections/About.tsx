@@ -105,7 +105,6 @@ export default function About() {
                 { label: "Location", value: "Goa, India" },
                 { label: "Status", value: "Available" },
                 { label: "Timezone", value: "IST +5:30" },
-                { label: "Experience", value: "Student" },
               ].map((card) => (
                 <div
                   key={card.label}
@@ -119,6 +118,23 @@ export default function About() {
                   </div>
                 </div>
               ))}
+              <a
+                href="/certificates/Shreyash_resume.pdf"
+                download="Shreyash_Vaigankar_Resume.pdf"
+                className="glass-panel p-4 border border-[#F5D800]/20 hover:border-[#F5D800]/40 hover:bg-[#F5D800]/5 transition-all duration-200 cursor-hover group"
+              >
+                <div className="font-terminal text-[9px] tracking-[4px] text-[#8A9BA8]/40 uppercase mb-1">
+                  Resume
+                </div>
+                <div className="font-terminal text-sm text-[#F5D800] flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-y-0.5 transition-transform duration-200">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  Download ↗
+                </div>
+              </a>
             </div>
           </div>
 
