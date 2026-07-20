@@ -8,4 +8,4 @@ directory = "dist/public"
 binding = "ASSETS"
 
 [vars]
-APP_ID = "19e3ec01-9382-80a1-8000-0000efc233b6"
+APP_ID = "19e3ec01-9382-80a1-8000-0000efc233b6"
