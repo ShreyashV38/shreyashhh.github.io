@@ -9,6 +9,7 @@ import { env } from "./lib/env";
 type Env = {
   Bindings: {
     ASSETS?: { fetch: (req: Request | URL | string) => Promise<Response> };
+    HYPERDRIVE?: { connectionString: string };
     APP_ID?: string;
     APP_SECRET?: string;
     DATABASE_URL?: string;
@@ -23,6 +24,10 @@ const app = new Hono<Env>();
 // so existing code (DB, Resend, etc.) works on both Render and Workers
 app.use("*", async (c, next) => {
   if (c.env && typeof process !== "undefined") {
+    // If Hyperdrive is available, use its connection string for the DB
+    if (c.env.HYPERDRIVE?.connectionString) {
+      process.env.DATABASE_URL = c.env.HYPERDRIVE.connectionString;
+    }
     for (const [key, value] of Object.entries(c.env)) {
       if (typeof value === "string") {
         process.env[key] = value;
