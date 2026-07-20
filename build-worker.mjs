@@ -86,6 +86,7 @@ await esbuild.build({
       `  'node:process': __process, 'process': __process,`,
       `  'node:string_decoder': __string_decoder, 'string_decoder': __string_decoder,`,
       `};`,
+      `globalThis.process = __process;`,
       `globalThis.require = globalThis.require || function(id) {`,
       `  var m = __node_modules[id];`,
       `  if (m) return m;`,
