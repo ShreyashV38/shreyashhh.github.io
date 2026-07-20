@@ -12,10 +12,25 @@ type Env = {
     APP_ID?: string;
     APP_SECRET?: string;
     DATABASE_URL?: string;
+    RESEND_API_KEY?: string;
+    CONTACT_EMAIL?: string;
   };
 };
 
 const app = new Hono<Env>();
+
+// Bridge Cloudflare Worker bindings → process.env
+// so existing code (DB, Resend, etc.) works on both Render and Workers
+app.use("*", async (c, next) => {
+  if (c.env && typeof process !== "undefined") {
+    for (const [key, value] of Object.entries(c.env)) {
+      if (typeof value === "string") {
+        process.env[key] = value;
+      }
+    }
+  }
+  return next();
+});
 
 app.use(logger());
 app.onError((err, c) => {
