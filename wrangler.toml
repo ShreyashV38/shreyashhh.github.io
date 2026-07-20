@@ -9,3 +9,8 @@ binding = "ASSETS"
 
 [vars]
 APP_ID = "19e3ec01-9382-80a1-8000-0000efc233b6"
+CONTACT_EMAIL = "shreyashvaigankar125@gmail.com"
+VITE_PUBLIC_POSTHOG_HOST = "https://us.i.posthog.com"
+VITE_PUBLIC_POSTHOG_PROJECT_TOKEN = "phc_r26zJ9DsEz87XpA4dcuxnrCRvPz3JPm8iQ6zw7evSkEi"
+# NOTE: DATABASE_URL, RESEND_API_KEY, and APP_SECRET must be set as
+# encrypted Secrets in the Cloudflare Dashboard (not here in plain text).
