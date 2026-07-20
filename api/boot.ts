@@ -1,13 +1,21 @@
 import { Hono } from "hono";
 import { bodyLimit } from "hono/body-limit";
 import { logger } from "hono/logger";
-import type { HttpBindings } from "@hono/node-server";
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 import { appRouter } from "./router";
 import { createContext } from "./context";
 import { env } from "./lib/env";
 
-const app = new Hono<{ Bindings: HttpBindings }>();
+type Env = {
+  Bindings: {
+    ASSETS?: { fetch: (req: Request | URL | string) => Promise<Response> };
+    APP_ID?: string;
+    APP_SECRET?: string;
+    DATABASE_URL?: string;
+  };
+};
+
+const app = new Hono<Env>();
 
 app.use(logger());
 app.onError((err, c) => {
@@ -25,6 +33,19 @@ app.use("/api/trpc/*", async (c) => {
   });
 });
 app.all("/api/*", (c) => c.json({ error: "Not Found" }, 404));
+
+// Cloudflare Workers: serve static assets + SPA fallback
+app.get("*", async (c, next) => {
+  const assets = c.env?.ASSETS;
+  if (!assets) return next();
+
+  // Try serving the exact static file
+  const response = await assets.fetch(c.req.raw);
+  if (response.ok) return response;
+
+  // SPA fallback: serve index.html for client-side routes
+  return assets.fetch(new Request(new URL("/index.html", c.req.url)));
+});
 
 export default app;
 

@@ -1,5 +1,11 @@
 name = "portfolio"
+main = "dist/boot.js"
 compatibility_date = "2024-09-23"
 compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = "dist/public"
+binding = "ASSETS"
+
 [vars]
-APP_ID = "19e3ec01-9382-80a1-8000-0000efc233b6"
+APP_ID = "19e3ec01-9382-80a1-8000-0000efc233b6"
