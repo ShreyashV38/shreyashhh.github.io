@@ -18,6 +18,7 @@ export default function Reviews() {
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(5);
   const [submitted, setSubmitted] = useState(false);
+  const [hasIntersected, setHasIntersected] = useState(false);
   const sessionToken = useRef(generateSessionToken());
 
   const posthog = usePostHog();
@@ -67,14 +68,7 @@ export default function Reviews() {
       entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            const items = entry.target.querySelectorAll(".reveal");
-            items.forEach((el, i) => {
-              setTimeout(() => {
-                (el as HTMLElement).classList.add("visible");
-                (el as HTMLElement).style.transition =
-                  "opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1)";
-              }, i * 80);
-            });
+            setHasIntersected(true);
             observer.unobserve(entry.target);
           }
         });
@@ -84,6 +78,18 @@ export default function Reviews() {
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    if (!hasIntersected || !sectionRef.current) return;
+    const items = sectionRef.current.querySelectorAll(".reveal:not(.visible)");
+    items.forEach((el, i) => {
+      setTimeout(() => {
+        (el as HTMLElement).classList.add("visible");
+        (el as HTMLElement).style.transition =
+          "opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1)";
+      }, i * 80);
+    });
+  }, [hasIntersected, reviewsQuery.data]);
 
   const reviews = reviewsQuery.data ?? [];
   const averageRating =
