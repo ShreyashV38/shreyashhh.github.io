@@ -7,7 +7,15 @@ import type { ReactNode } from "react";
 
 export const trpc = createTRPCReact<AppRouter>();
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    mutations: {
+      // Retry mutations once — handles Cloudflare Worker cold-start failures
+      // where the first request may fail during Hyperdrive connection init.
+      retry: 1,
+    },
+  },
+});
 const trpcClient = trpc.createClient({
   links: [
     httpBatchLink({
