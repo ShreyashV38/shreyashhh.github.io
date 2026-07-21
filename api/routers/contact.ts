@@ -4,9 +4,6 @@ import { getDb } from "../queries/connection";
 import { contacts } from "@db/schema";
 import { Resend } from "resend";
 
-const resendApiKey = process.env.RESEND_API_KEY;
-console.log("[MAIL] Module loaded. RESEND_API_KEY:", resendApiKey ? "SET" : "EMPTY");
-
 export const contactRouter = createRouter({
   submit: publicQuery
     .input(
@@ -28,7 +25,11 @@ export const contactRouter = createRouter({
       console.log("[CONTACT] Saved to database.");
 
       // ── Email notification via Resend ──
+      // Read env vars at request time (not module load time) so Cloudflare
+      // Worker bindings that are bridged to process.env in boot.ts are available.
+      const resendApiKey = process.env.RESEND_API_KEY;
       const contactEmail = process.env.CONTACT_EMAIL || "shreyashvaigankar125@gmail.com";
+      console.log("[MAIL] RESEND_API_KEY:", resendApiKey ? "SET" : "EMPTY");
 
       if (!resendApiKey) {
         console.log("[MAIL] Skipping email — RESEND_API_KEY not configured.");
