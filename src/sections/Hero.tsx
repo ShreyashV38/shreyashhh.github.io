@@ -151,7 +151,7 @@ export default function Hero() {
                 Contact Me
               </button>
               <a
-                href="/certificates/Shreyash_resume.pdf"
+                href="/certificates/Shreyash_Resume__.pdf"
                 download="Shreyash_Vaigankar_Resume.pdf"
                 onClick={() => posthog?.capture("hero_resume_downloaded")}
                 className="px-8 py-3 border border-[#F5D800]/40 text-[#F5D800] font-display text-xs tracking-[3px] uppercase hover:bg-[#F5D800]/10 hover:shadow-[0_0_20px_rgba(245,216,0,0.3)] transition-all duration-300 cursor-hover flex items-center gap-2"

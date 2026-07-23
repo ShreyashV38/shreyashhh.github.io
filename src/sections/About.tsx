@@ -119,7 +119,7 @@ export default function About() {
                 </div>
               ))}
               <a
-                href="/certificates/Shreyash_resume.pdf"
+                href="/certificates/Shreyash_Resume__.pdf"
                 download="Shreyash_Vaigankar_Resume.pdf"
                 className="glass-panel p-4 border border-[#F5D800]/20 hover:border-[#F5D800]/40 hover:bg-[#F5D800]/5 transition-all duration-200 cursor-hover group"
               >
