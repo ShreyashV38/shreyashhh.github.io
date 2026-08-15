@@ -33,5 +33,14 @@ export const certificates: Certificate[] = [
     date: "2026",
     description: "Completed advanced topics on the Model Context Protocol.",
     image: "/certificates/Claude_MCP.png"
+  },
+  {
+    id: "National_Med_Tech-Hackathon",
+    title: "National Med Tech Hackathon",
+    issuer: "NAPCAIM",
+    date: "12 February 2026",
+    description: "Certificate of Participation in the National Med Tech Hackathon by Government of Goa, focused on building tech solutions for healthcare challenges.",
+    image: "/certificates/National_Med_tech_page-0001.jpg"
   }
+
 ];
