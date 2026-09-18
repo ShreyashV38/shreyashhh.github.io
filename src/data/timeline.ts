@@ -99,6 +99,15 @@ export const timelineData: TimelineEntry[] = [
     tags: ["React", "TypeScript", "Google Apps Script"],
   },
   {
+    year: "September 2026",
+    title: "ExamForge — Online Examination System",
+    organization: "Full Stack / Cloud Native",
+    description:
+      "Built a high-concurrency online exam platform with server-authoritative timers, transactional auto-evaluation, anti-cheat monitoring, bulk JSON question import, and a stateless Express backend designed for Kubernetes horizontal scaling.",
+    type: "project",
+    tags: ["Next.js", "TypeScript", "Express", "PostgreSQL", "Kubernetes"],
+  },
+  {
     year: "2026",
     title: "MCA 2nd Year — Ongoing",
     organization: "Goa Business School, Goa University",

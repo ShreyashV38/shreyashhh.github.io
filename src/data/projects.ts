@@ -222,5 +222,24 @@ export const projects: Project[] = [
       "Live peer review system with database integration",
       "Functional email contact form via Resend API"
     ]
+  },
+  {
+    id: "examforge",
+    title: "ExamForge — Online Examination System",
+    shortTitle: "EXAMFORGE",
+    description:
+      "A high-concurrency, production-style online exam system with server-authoritative timers, transactional auto-evaluation, question bank management, and real-time student dashboards.",
+    longDescription:
+      "ExamForge is a full-stack online examination platform designed for colleges and universities to administer synchronized exams at scale. Features server-authoritative countdown timers for fairness, atomic transactional grading to prevent double submissions, bulk JSON question import with schema validation, anti-cheat tab-switch monitoring, and a stateless Express backend ready for horizontal scaling behind Kubernetes.",
+    tech: ["Next.js 16", "TypeScript", "Express", "PostgreSQL", "Prisma", "Tailwind CSS", "JWT", "Kubernetes"],
+    status: "PRODUCTION",
+    githubUrl: "https://github.com/ShreyashV38/ExamForge",
+    category: "Full Stack / Cloud Native",
+    highlights: [
+      "Server-authoritative synchronized exam timers",
+      "Transactional auto-evaluation preventing race conditions",
+      "Anti-cheat tab-switch & window-blur monitoring",
+      "Stateless backend designed for Kubernetes horizontal scaling"
+    ]
   }
 ];
